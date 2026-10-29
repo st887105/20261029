@@ -1,0 +1,76 @@
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+:root{--c:#2563eb;--bg:#f5f7fb;--fg:#1e293b;--muted:#64748b;--card:#fff;--line:#e2e8f0;--danger:#dc2626}
+body{margin:0;font-family:system-ui,"Noto Sans TC","Microsoft JhengHei",sans-serif;background:var(--bg);color:var(--fg);min-height:100vh}
+
+/* 頂部列 */
+.topbar{position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:12px;padding:10px 14px;background:var(--card);border-bottom:1px solid var(--line)}
+.topbar h1{font-size:1.05rem;margin:0;flex:1}
+.count{color:var(--muted);font-size:.9rem}
+.icon-btn{border:0;background:none;font-size:1.4rem;cursor:pointer;padding:4px 8px;color:var(--fg)}
+
+/* 主區 */
+main{padding:14px;max-width:1200px;margin:0 auto}
+.dropzone{border:2px dashed #94a3b8;border-radius:14px;padding:50px 16px;text-align:center;color:var(--muted);background:#fff;cursor:pointer}
+.dropzone.over{border-color:var(--c);background:#eff6ff}
+.dropzone small{display:block;margin-top:6px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}
+.card{background:var(--card);border-radius:12px;overflow:hidden;border:1px solid var(--line);display:flex;flex-direction:column}
+.thumb{aspect-ratio:1;background:#0f172a;display:flex;align-items:center;justify-content:center}
+.thumb img{max-width:100%;max-height:100%;object-fit:contain}
+.meta{padding:8px 10px;display:flex;flex-direction:column;gap:2px;font-size:.85rem}
+.meta b{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:600}
+.meta small{color:var(--muted)}
+.card-actions{display:flex;flex-wrap:wrap;gap:4px;padding:0 8px 8px}
+
+/* 按鈕 */
+.btn{border:1px solid var(--line);background:#fff;border-radius:8px;padding:8px 12px;font-size:.95rem;cursor:pointer;color:var(--fg);font-family:inherit}
+.btn.sm{padding:4px 8px;font-size:.8rem}
+.btn.primary{background:var(--c);border-color:var(--c);color:#fff}
+.btn.danger{color:var(--danger)}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+
+/* 漢堡選單抽屜 */
+.drawer{position:fixed;inset:0;z-index:50}
+.drawer-backdrop{position:absolute;inset:0;background:rgba(0,0,0,.35)}
+.drawer-panel{position:absolute;top:0;left:0;bottom:0;width:min(78vw,280px);background:#fff;padding:16px;display:flex;flex-direction:column;gap:8px;box-shadow:2px 0 12px rgba(0,0,0,.2);overflow:auto}
+.drawer-panel .btn{text-align:left;padding:12px;font-size:1rem}
+
+/* 編輯器 */
+.editor{position:fixed;inset:0;z-index:40;background:#0f172a;color:#fff;display:flex;flex-direction:column}
+.editor-head{display:flex;align-items:center;gap:10px;padding:10px 12px}
+.editor-head .icon-btn{color:#fff}
+.editor-head span{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.stage{flex:1;min-height:0;overflow:auto;display:flex;align-items:center;justify-content:center;padding:16px}
+.stage-inner{position:relative;max-width:100%;touch-action:none;user-select:none;line-height:0}
+#prevCanvas{display:block;max-width:100%;max-height:70vh;width:auto;height:auto}
+.crop-box{position:absolute;border:2px solid #fff;box-shadow:0 0 0 9999px rgba(0,0,0,.55);cursor:move;box-sizing:border-box}
+.crop-box span{position:absolute;width:20px;height:20px;background:#fff;border-radius:50%;transform:translate(-50%,-50%)}
+.crop-box .nw{left:0;top:0;cursor:nwse-resize}
+.crop-box .ne{left:100%;top:0;cursor:nesw-resize}
+.crop-box .sw{left:0;top:100%;cursor:nesw-resize}
+.crop-box .se{left:100%;top:100%;cursor:nwse-resize}
+.tools{display:flex;flex-wrap:wrap;gap:8px;padding:12px;background:#1e293b;justify-content:center}
+.tools .btn{background:#334155;color:#fff;border-color:#475569}
+.tools select{padding:8px;border-radius:8px;font-size:.95rem}
+
+/* 底部面板 */
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:60;background:#fff;border-radius:18px 18px 0 0;padding:18px;box-shadow:0 -6px 20px rgba(0,0,0,.2);max-height:80vh;overflow:auto}
+.sheet h2{margin:0 0 12px;font-size:1.1rem}
+.field{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+.field select{padding:8px;border:1px solid var(--line);border-radius:8px;font-size:1rem}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+.row .btn{flex:1}
+
+/* 提示訊息 */
+.toasts{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);z-index:90;display:flex;flex-direction:column;gap:8px;align-items:center;width:90%;max-width:360px;pointer-events:none}
+.toast{background:#1e293b;color:#fff;padding:10px 16px;border-radius:10px;opacity:0;transform:translateY(10px);transition:.3s}
+.toast.show{opacity:1;transform:none}
+
+@media (min-width:768px){
+  .sheet{left:50%;transform:translateX(-50%);width:480px;bottom:20px;border-radius:18px}
+}
+@media (max-width:480px){
+  .grid{grid-template-columns:repeat(2,1fr);gap:8px}
+  .topbar h1{font-size:.95rem}
+}
