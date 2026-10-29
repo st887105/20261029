@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>圖片壓縮裁切工具</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <button id="menuBtn" class="icon-btn" aria-label="開啟選單">☰</button>
+  <h1>圖片壓縮裁切</h1>
+  <span class="count" id="countLabel">0 張</span>
+</header>
+
+<!-- 漢堡選單（抽屜） -->
+<nav id="drawer" class="drawer" hidden>
+  <div class="drawer-backdrop" data-action="closeMenu"></div>
+  <div class="drawer-panel">
+    <button class="btn" data-action="pickFiles">📄 選取多張圖片</button>
+    <button class="btn" data-action="pickFolder">🗂 選擇資料夾</button>
+    <button class="btn" data-action="batch">⚡ 全部壓縮</button>
+    <button class="btn" data-action="zip">📦 下載全部（ZIP）</button>
+    <button class="btn" data-action="openSettings">⚙ 壓縮設定</button>
+    <button class="btn danger" data-action="clearAll">🗑 清除全部</button>
+  </div>
+</nav>
+
+<main>
+  <div id="dropzone" class="dropzone">
+    <p>點這裡選取圖片，或把圖片拖曳到此處</p>
+    <small>支援 JPG、PNG、WebP 等瀏覽器可讀取的格式</small>
+  </div>
+  <section id="grid" class="grid"></section>
+</main>
+
+<!-- 裁切／旋轉編輯器 -->
+<div id="editor" class="editor" hidden>
+  <div class="editor-head">
+    <button class="icon-btn" data-action="closeEditor" aria-label="返回">←</button>
+    <span id="editorName"></span>
+    <button class="btn primary" data-action="saveEdit">套用</button>
+  </div>
+  <div class="stage">
+    <div class="stage-inner" id="stageInner">
+      <canvas id="prevCanvas"></canvas>
+      <div id="cropBox" class="crop-box">
+        <span class="nw" data-h="nw"></span>
+        <span class="ne" data-h="ne"></span>
+        <span class="sw" data-h="sw"></span>
+        <span class="se" data-h="se"></span>
+      </div>
+    </div>
+  </div>
+  <div class="tools">
+    <button class="btn" data-action="rotate" data-dir="-90">↺ 左轉</button>
+    <button class="btn" data-action="rotate" data-dir="90">↻ 右轉</button>
+    <select id="ratio" aria-label="裁切比例">
+      <option value="free">自由裁切</option>
+      <option value="1:1">1:1</option>
+      <option value="4:3">4:3</option>
+      <option value="3:4">3:4</option>
+      <option value="16:9">16:9</option>
+    </select>
+    <button class="btn" data-action="resetCrop">重設裁切</button>
+  </div>
+</div>
+
+<!-- 壓縮設定（底部面板） -->
+<div id="sheet" class="sheet" hidden>
+  <h2>壓縮設定</h2>
+  <div class="field">
+    <label for="targetRange">每張目標大小（不超過）：<b id="targetVal">1.5 MB</b></label>
+    <input type="range" id="targetRange" min="1" max="2" step="0.1" value="1.5">
+  </div>
+  <div class="field">
+    <label for="fmtSelect">輸出格式</label>
+    <select id="fmtSelect">
+      <option value="image/jpeg">JPG（建議，相容性最好）</option>
+      <option value="image/webp">WebP（同大小畫質較好）</option>
+      <option value="image/png">PNG（檔案通常較大）</option>
+    </select>
+  </div>
+  <div class="row">
+    <button class="btn primary" data-action="batch">全部壓縮</button>
+    <button class="btn" data-action="closeSheet">關閉</button>
+  </div>
+</div>
+
+<div id="toasts" class="toasts"></div>
+
+<input type="file" id="fileInput" accept="image/*,.heic,.heif" multiple hidden>
+<input type="file" id="folderInput" accept="image/*,.heic,.heif" webkitdirectory hidden>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/heic2any@0.0.4/dist/heic2any.min.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
